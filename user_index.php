@@ -1,3 +1,10 @@
+<?php session_start(); ?>
+<?php
+if (!isset($_SESSION['loggedin'])){
+    header('location:admin.php');
+    exit;
+}
+?>
 <?php include_once 'template/_head.php'?>
 
 <body>
@@ -19,7 +26,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+                    <h1>User management</h1>
                 </div>
             </div>
         </div>
@@ -47,7 +54,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Table</strong>
+                        <strong class="card-title">All users</strong>
                     </div>
                     <div class="card-body text-center">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">

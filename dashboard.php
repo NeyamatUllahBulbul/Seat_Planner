@@ -1,3 +1,10 @@
+<?php session_start(); ?>
+<?php
+if (!isset($_SESSION['loggedin'])){
+    header('location:admin.php');
+    exit;
+}
+?>
 <?php include_once 'template/_head.php'?>
 
 <body>

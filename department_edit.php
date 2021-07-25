@@ -7,14 +7,13 @@
 ?>
 <?php include_once 'template/_head.php'?>
 <?php
-    if (isset($_GET['uid'])){
-        $user_id = $_GET['uid'];
+    if (isset($_GET['did'])){
+        $dept_id = $_GET['did'];
         include_once 'database_connection.php';
         $conn = connect();
-        $sql = "SELECT * FROM users WHERE id='$user_id'";
+        $sql = "SELECT * FROM departments WHERE id='$dept_id'";
         $result = $conn->query($sql);
-        $user = $result->fetch_assoc();
-
+        $department = $result->fetch_assoc();
     }
 ?>
 <!-- Left Panel -->
@@ -33,7 +32,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Dashboard</h1>
+                    <h1>Department management</h1>
                 </div>
             </div>
         </div>
@@ -41,8 +40,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Users</li>
-                        <li class="active">User edit</li>
+                        <li class="active">Department</li>
+                        <li class="active">Department edit</li>
                     </ol>
                 </div>
             </div>
@@ -55,34 +54,40 @@
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header">User edit form</div>
+                    <div class="card-header">Department edit form</div>
                     <div class="card-body card-block">
-                        <form action="user_edit_action.php" method="POST" class="">
-                            <input type="hidden" name="user_id" value="<?= $user['id']?>">
+                        <form action="department_edit_action.php" method="POST" class="">
+                            <input type="hidden" name="dept_id" value="<?= $department['id']?>">
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="text" id="username" name="name" value="<?= $user['name']?>" placeholder="Name" class="form-control">
+                                    <input type="text" id="username" name="name" value="<?= $department['name']?>" placeholder="Name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="text" id="username" name="username" value="<?= $user['username']?>" placeholder="Username" class="form-control">
+                                    <input type="text" id="username" name="details" value="<?= $department['details']?>" placeholder="Details" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                    <input type="email" id="email" name="email" value="<?= $user['email']?>" placeholder="Email" class="form-control">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <input type="text" id="username" name="head" value="<?= $department['head']?>" placeholder="Head of department" class="form-control">
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <div class="input-group">
+                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
+                                    <input type="text" id="username" name="slug" value="<?= $department['slug']?>" placeholder="Department slug (e.g. CSE,EEE)" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <label for="status"><b>Status</b></label>
                                 <br>
-                                <input type="radio" name="status" <?php if($user['status']=='Active'){echo 'checked';} ?>  value="Active" id="active">
+                                <input type="radio" name="status" <?php if($department['status']=='Active'){echo 'checked';} ?>  value="Active" id="active">
                                 <label for="active">Active</label>
-                                <input type="radio" name="status" <?php if($user['status']=='Inactive'){echo 'checked';} ?> value="Inactive" id="inactive">
+                                <input type="radio" name="status" <?php if($department['status']=='Inactive'){echo 'checked';} ?> value="Inactive" id="inactive">
                                 <label for="inactive">Inactive</label>
                             </div>
                             <div class="form-actions form-group"><button type="submit" class="btn btn-success btn-sm">Submit</button></div>
@@ -101,4 +106,5 @@
 
 <!-- Right Panel -->
 <?php include_once 'template/footer.php'?>
+
 

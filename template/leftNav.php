@@ -13,13 +13,13 @@
         <div id="main-menu" class="main-menu collapse navbar-collapse">
             <ul class="nav navbar-nav">
                 <li class="active">
-                    <a href="index.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
+                    <a href="dashboard.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
                 <li class="active">
                     <a href="user_index.php"> <i class="menu-icon fa fa-user"></i>Manage Users</a>
                 </li>
                 <li class="active">
-                    <a href="user_index.php"> <i class="menu-icon fa fa-user"></i>Manage Users</a>
+                    <a href="department_index.php"> <i class="menu-icon fa fa-user"></i>Manage Departments</a>
                 </li>
 
                 <li class="menu-item-has-children dropdown">
