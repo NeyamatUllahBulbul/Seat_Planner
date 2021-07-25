@@ -18,6 +18,9 @@
                 <li class="active">
                     <a href="user_index.php"> <i class="menu-icon fa fa-user"></i>Manage Users</a>
                 </li>
+                <li class="active">
+                    <a href="user_index.php"> <i class="menu-icon fa fa-user"></i>Manage Users</a>
+                </li>
 
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-laptop"></i>Components</a>
