@@ -1,9 +1,9 @@
 <?php session_start(); ?>
 <?php
-    if (!isset($_SESSION['loggedin'])){
-        header('location:admin.php');
-        exit;
-    }
+if (!isset($_SESSION['loggedin'])){
+    header('location:admin.php');
+    exit;
+}
 ?>
 <?php include_once 'template/_head.php'?>
 
@@ -25,7 +25,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Department management</h1>
+                    <h1>Batch management</h1>
                 </div>
             </div>
         </div>
@@ -33,7 +33,7 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <a href="department_create.php" class="btn btn-sm btn-warning">Add New</a>
+                        <a href="batch_create.php" class="btn btn-sm btn-warning">Add New</a>
                     </ol>
                 </div>
             </div>
@@ -41,11 +41,13 @@
     </div>
 
     <?php
-    include_once 'database_connection.php';
-    $conn = connect();
-    $sql = "SELECT * FROM departments";
-    $departments= $conn->query($sql);
-    $serial = 1;
+        include_once 'database_connection.php';
+        $conn = connect();
+        $sql = "SELECT batches.id,batches.name, batches.details, departments.name as Dname, batches.co_ordinator, batches.status
+                FROM batches
+                INNER JOIN departments ON batches.dept_id=departments.id";
+        $batches= $conn->query($sql);
+        $serial = 1;
     ?>
 
     <div class="content mt-3">
@@ -53,7 +55,7 @@
             <div class="col-md-12">
                 <div class="card">
                     <div class="card-header">
-                        <strong class="card-title">Data Table</strong>
+                        <strong class="card-title">All batches</strong>
                     </div>
                     <div class="card-body text-center">
                         <table id="bootstrap-data-table-export" class="table table-striped table-bordered">
@@ -62,29 +64,29 @@
                                 <th class="text-center" style="width: 3px;">Sl</th>
                                 <th>Name</th>
                                 <th>Details</th>
-                                <th>Department head</th>
-                                <th>Slug</th>
+                                <th>Department name</th>
+                                <th>Co-ordinator</th>
                                 <th>Status</th>
                                 <th>Action</th>
                             </tr>
                             </thead>
                             <tbody>
                             <?php
-                            foreach ($departments as $department){
+                            foreach ($batches as $batch){
                                 ?>
                                 <tr>
                                     <td><?= $serial++?></td>
-                                    <td><?= $department['name']?></td>
-                                    <td><?= $department['details']?></td>
-                                    <td><?= $department['head']?></td>
-                                    <td><?= $department['slug']?></td>
-                                    <td><?= $department['status']?></td>
+                                    <td><?= $batch['name']?></td>
+                                    <td><?= $batch['details']?></td>
+                                    <td><?= $batch['Dname']?></td>
+                                    <td><?= $batch['co_ordinator']?></td>
+                                    <td><?= $batch['status']?></td>
                                     <td>
-                                        <a  href="department_edit.php?did=<?= $department['id']?>" class="btn btn-info btn-sm">
+                                        <a  href="batch_edit.php?bid=<?= $batch['id']?>" class="btn btn-info btn-sm">
                                             <i class="fa fa-edit"></i>Edit
                                         </a>
-                                        <form class="" action="department_delete_action.php" method="post" style="display:inline">
-                                            <input type="hidden" name="dept_id" value="<?= $department['id']?>">
+                                        <form class="" action="batch_delete_action.php" method="post" style="display:inline">
+                                            <input type="hidden" name="batch_id" value="<?= $batch['id']?>">
                                             <button title="Delete" type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
                                                 <i class="fa fa-trash"></i>Delete
                                             </button>
@@ -107,3 +109,4 @@
 
 <!-- Right Panel -->
 <?php include_once 'template/footer.php'?>
+
