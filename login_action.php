@@ -41,7 +41,7 @@
         }else{
             $_SESSION['count']++;
             if($_SESSION['count'] >= 3){
-                setcookie('loginCounter', true, time() + (60*1));
+                setcookie('loginCounter', true, time() + (60*3));
                 $_SESSION['count'] = 0;
             }
             $_SESSION['error']= 'Invalid login!<br>';

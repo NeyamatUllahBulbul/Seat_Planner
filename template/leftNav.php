@@ -15,14 +15,21 @@
                 <li class="active">
                     <a href="dashboard.php"> <i class="menu-icon fa fa-dashboard"></i>Dashboard </a>
                 </li>
-                <li class="active">
+                <li class="menu-item-has-children dropdown">
+                    <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-user"></i>Manage Student</a>
+                    <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-list"></i><a href="student_index.php">All Students</a></li>
+                        <li><i class="fa fa-plus-circle"></i><a href="student_create.php">Add Students</a></li>
+                    </ul>
+                </li>
+                <li>
+                    <a href="department_index.php"> <i class="menu-icon fa fa-building"></i>Manage Departments</a>
+                </li>
+                <li >
+                    <a href="batch_index.php"> <i class="menu-icon fa fa-tasks"></i>Manage Batches</a>
+                </li>
+                <li>
                     <a href="user_index.php"> <i class="menu-icon fa fa-user"></i>Manage Users</a>
-                </li>
-                <li class="active">
-                    <a href="department_index.php"> <i class="menu-icon fa fa-user"></i>Manage Departments</a>
-                </li>
-                <li class="active">
-                    <a href="batch_index.php"> <i class="menu-icon fa fa-user"></i>Manage Batches</a>
                 </li>
 
                 <li class="menu-item-has-children dropdown">
