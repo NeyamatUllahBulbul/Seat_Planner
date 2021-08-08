@@ -56,32 +56,7 @@ if($_POST){
         header('location:create_seat_plan.php');
         exit;
     }
-//    $first_batch_students
-//        $second_batch_students
-    echo '<pre>';
-    $seat_per_column = $seat / $column;
-    $room = [];
-    $j = 0;
-    for ($i=1;$i<=$column;$i++){
-        if ($i%2 == 1) {
-            $j++;
-            foreach ($first_batch_students as $index=>$first_batch_student) {
-                if ($index < ($seat_per_column*$j)) {
-                    $room[$i][] = $first_batch_student['student_id'];
-                    unset($first_batch_students[$index]);
-                }
-            }
-        } else {
-            foreach ($second_batch_students as $index=>$first_batch_student) {
-                if ($index < $seat_per_column*$j) {
-                    $room[$i][] = $first_batch_student['student_id'];
-                    unset($second_batch_students[$index]);
-                }
-            }
-        }
-    }
-    var_dump($room);
-    exit;
+
 }
 
 ?>
@@ -114,6 +89,7 @@ if($_POST){
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
+                        <button class="btn btn-warning" value="print" onclick="PrintDiv();">Print</button>
                     </ol>
                 </div>
             </div>
@@ -122,23 +98,63 @@ if($_POST){
 
 
 
-    <div class="content mt-3">
+    <div class="content mt-3" id="divToPrint">
         <div class="row">
-            <?php
-            $i=0;
-            $j=0;
-            foreach ($first_batch_students as $first){ ?>
-                <p><?= $first['student_id']?></p><br>
-            <?php
-                $i++;
+            <div class="col-md-12">
+                <div class="card">
+                    <div class="card-header">
+                        <strong class="card-title">All batches</strong>
+                    </div>
+                    <div class="card-body text-center">
+                        <table id="bootstrap-data-table-export" class="table table-bordered" >
+                            <thead>
+                            <tr>
+                            <?php for ($i=1;$i<=$column;$i++){ ?>
 
-                if ($i==4){
-                    $i=0; ?>
-        </div>
-        <div class="row" >
-           <?php     }
-            } ?>
-        </div>
+                                <th>Column <?= $i ?></th>
+
+                            <?php } ?>
+                            </tr>
+                            </thead>
+                            <tbody>
+                            <tr >
+                            <?php
+                            $seat_per_column = $seat / $column;
+                            $room = [];
+                            $j = 0;
+                            for ($i=1;$i<=$column;$i++){
+                                echo '<td>';
+                                if ($i%2 == 1) {
+                                    $j++;
+                                    foreach ($first_batch_students as $index=>$first_batch_student) {
+                                        if ($index < ($seat_per_column*$j)) { ?>
+
+                                                <p style="color: black!important;font-size: 25px;"><?=$first_batch_student['student_id']?></p>
+
+                                <?php        unset($first_batch_students[$index]);
+                                        }
+                                    }
+                                } else {
+                                    foreach ($second_batch_students as $index=>$second_batch_student) {
+                                        if ($index < $seat_per_column*$j) { ?>
+
+                                                <p style="color: black!important;font-size: 25px;"><?=$second_batch_student['student_id']?></p>
+
+
+                            <?php            unset($second_batch_students[$index]);
+                                        }
+                                    }
+                                }
+                            }
+
+                            ?>
+                            </tr>
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+
 
     </div> <!-- .content -->
 </div><!-- /#right-panel -->
@@ -146,3 +162,12 @@ if($_POST){
 <!-- Right Panel -->
 <?php include_once 'template/footer.php'?>
 
+<script type="text/javascript">
+    function PrintDiv() {
+        var divToPrint = document.getElementById('divToPrint');
+        var popupWin = window.open('', '_blank', 'width=300,height=300');
+        popupWin.document.open();
+        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
+        popupWin.document.close();
+    }
+</script>

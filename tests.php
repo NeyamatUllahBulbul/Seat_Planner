@@ -45,3 +45,31 @@
     @endif
     @endforeach
 </div>
+<?php
+//    $first_batch_students
+//        $second_batch_students
+echo '<pre>';
+    $seat_per_column = $seat / $column;
+    $room = [];
+    $j = 0;
+    for ($i=1;$i<=$column;$i++){
+        if ($i%2 == 1) {
+            $j++;
+            foreach ($first_batch_students as $index=>$first_batch_student) {
+                if ($index < ($seat_per_column*$j)) {
+                    $room[$i][] = $first_batch_student['student_id'];
+                    unset($first_batch_students[$index]);
+                }
+            }
+        } else {
+            foreach ($second_batch_students as $index=>$first_batch_student) {
+                if ($index < $seat_per_column*$j) {
+                    $room[$i][] = $first_batch_student['student_id'];
+                    unset($second_batch_students[$index]);
+                }
+            }
+        }
+    }
+    var_dump($room);
+    exit;
+    ?>
