@@ -102,7 +102,28 @@ if (!isset($_SESSION['loggedin'])){
                                 </div>
                                 <div class="separator" id="separator" style="height: 78%;width: 1px;background: black;top: 68px;bottom: 0;position: absolute;left: 50%;"></div>
                                 <div class="col-6">
-                                    <p style="color: black">Exam hall Information</p>
+                                    <p style="color: black">Exam Information</p>
+                                    <div class="form-group">
+                                        <label class=""><b>Name of the Examination</b></label><br>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-book"></i></div>
+                                            <input type="text" id="username" name="exam_name" placeholder="Examination name" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=""><b>Examination date</b></label><br>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                            <input type="date" id="username" name="date" placeholder="Examination date" class="form-control">
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=""><b>Examination time</b></label><br>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-clock-o"></i></div>
+                                            <input type="time" id="username" name="time" placeholder="Examination name" class="form-control">
+                                        </div>
+                                    </div>
                                     <div class="form-group">
                                         <label class=""><b>Room number</b></label><br>
                                         <div class="input-group">

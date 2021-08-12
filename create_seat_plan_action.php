@@ -11,15 +11,22 @@ if($_POST){
     $first_subject  = $_POST['first_subject'];
     $second_batch   = $_POST['second_batch'];
     $second_subject = $_POST['second_subject'];
+    $exam_name      = $_POST['exam_name'];
+    $date           = $_POST['date'];
+    $time           = $_POST['time'];
     $room_no        = $_POST['room_no'];
-    $seat          = $_POST['seats'];
-    $column        = $_POST['columns'];
+    $seat           = $_POST['seats'];
+    $column         = $_POST['columns'];
 
     include_once 'database_connection.php';
     $conn = connect();
 
+    $sql="INSERT INTO seat_plans (first_batch,first_subject,second_batch,second_subject,exam_name,date,time,room_no,seat,column_number)
+				            VALUES ('$first_batch','$first_subject','$second_batch','$second_subject','$exam_name','$date','$time','$room_no','$seat','$column')";
+    $conn->query($sql);
+
     if ($first_batch == '' || $first_subject == ''){
-        $_SESSION['error']= 'First batch or subject name cannot be empty<br>';
+        $_SESSION['error']= 'First batch or subject name cannot be empty.<br>';
         header('location:create_seat_plan.php');
         exit;
     }else {
@@ -31,9 +38,8 @@ if($_POST){
         }
         $first_batch_number = $first_batch_student->num_rows;
     }
-    if ($second_batch != ''){
-        if ($second_subject == ''){
-            $_SESSION['error']= 'Second batch subject name cannot be empty<br>';
+    if ($second_batch == '' || $second_subject == ''){
+            $_SESSION['error']= 'Second batch and subject cannot be empty.<br>';
             header('location:create_seat_plan.php');
             exit;
         }else {
@@ -45,17 +51,21 @@ if($_POST){
             }
             $second_batch_number = $second_batch_student->num_rows;
         }
-    }
+
     if (isset($second_batch_number)){
         $total_student = $first_batch_number + $second_batch_number;
-    }else {
-        $total_student = $first_batch_number;
     }
     if ($total_student > $seat){
         $_SESSION['error']= 'Number of students cannot be greater than number of seats<br>';
         header('location:create_seat_plan.php');
         exit;
     }
+
+    $sql = "SELECT name FROM batches WHERE id='$first_batch'";
+    $first_batch_name= $conn->query($sql);
+
+    $sql = "SELECT name FROM batches WHERE id='$second_batch'";
+    $second_batch_name= $conn->query($sql);
 
 }
 
@@ -89,7 +99,7 @@ if($_POST){
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <button class="btn btn-warning" value="print" onclick="PrintDiv();">Print</button>
+                        <button class="btn btn-warning" value="print" onclick="printDiv('print')"><i class="fa fa-print"></i> Print </button>
                     </ol>
                 </div>
             </div>
@@ -98,14 +108,36 @@ if($_POST){
 
 
 
-    <div class="content mt-3" id="divToPrint">
+    <div class="content mt-3" >
         <div class="row">
             <div class="col-md-12">
-                <div class="card">
-                    <div class="card-header">
-                        <strong class="card-title">All batches</strong>
+                <div class="card" id="print">
+                    <div class="row mt-5">
+                        <div class="col-lg-12 text-center">
+                            <h2>Stamford University Bangladesh</h2>
+                            <h5><?=$exam_name?></h5>
+                            <h6>Examination date:<?=date('d/m/Y',strtotime($date))?></h6>
+                            <h6>Examination time:<?=date('h:i A',strtotime($time))?></h6>
+                            <h6>Room number:<?=$room_no?></h6>
+                        </div>
                     </div>
-                    <div class="card-body text-center">
+                    <div class="row mt-3 mb-3">
+                        <div class="col-1"></div>
+                        <div class="col-5 float-left">
+                            <?php foreach ($first_batch_name as $first_name){ ?>
+                                <h6>Batch name: <?=$first_name['name']?></h6>
+                            <?php } ?>
+                            <h6>Subject: <?=$first_subject?></h6>
+                        </div>
+                        <div class="col-5 text-right">
+                            <?php foreach ($second_batch_name as $second_name){ ?>
+                                <h6>Batch name: <?=$second_name['name']?></h6>
+                            <?php } ?>
+                            <h6>Subject: <?=$second_subject?></h6>
+                        </div>
+                        <div class="col-1"></div>
+                    </div>
+                    <div class="card-b text-center">
                         <table id="bootstrap-data-table-export" class="table table-bordered" >
                             <thead>
                             <tr>
@@ -162,12 +194,24 @@ if($_POST){
 <!-- Right Panel -->
 <?php include_once 'template/footer.php'?>
 
-<script type="text/javascript">
-    function PrintDiv() {
-        var divToPrint = document.getElementById('divToPrint');
-        var popupWin = window.open('', '_blank', 'width=300,height=300');
-        popupWin.document.open();
-        popupWin.document.write('<html><body onload="window.print()">' + divToPrint.innerHTML + '</html>');
-        popupWin.document.close();
-    }
-</script>
+    <script>
+        function printDiv(divName){
+            var printContents = document.getElementById(divName).innerHTML;
+            var originalContents = document.body.innerHTML;
+
+            document.body.innerHTML = printContents;
+
+            window.print();
+
+            document.body.innerHTML = originalContents;
+
+        }
+        $(window).bind("load", function() {
+            if(window.localStorage.getItem('print') == 'print'){
+                window.localStorage.removeItem('print');
+                setTimeout(function() {
+                    printDiv('print');
+                }, 2000);
+            }
+        });
+    </script>
