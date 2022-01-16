@@ -79,9 +79,22 @@ if (!isset($_SESSION['loggedin'])){
                                 ?>
                                 <tr>
                                     <td><?= $serial++?></td>
-                                    <td><?= $plan['first_batch']?></td>
+                                    <?php
+                                    $first_batch = $plan['first_batch'];
+                                    $sql2 = "SELECT name FROM batches WHERE id='$first_batch'";
+                                    $first_batch_name= $conn->query($sql2);
+
+                                    $second_batch = $plan['second_batch'];
+                                    $sql3 = "SELECT name FROM batches WHERE id='$second_batch'";
+                                    $second_batch_name= $conn->query($sql3);
+                                    ?>
+                                    <td>
+                                        <?php foreach ($first_batch_name as $first_name){ echo $first_name['name']; }?>
+                                    </td>
                                     <td><?= $plan['first_subject']?></td>
-                                    <td><?= $plan['second_batch']?></td>
+                                    <td>
+                                        <?php foreach ($second_batch_name as $second_name){ echo $second_name['name']; }?>
+                                    </td>
                                     <td><?= $plan['second_subject']?></td>
                                     <td><?= $plan['exam_name']?></td>
                                     <td><?= date('d/m/Y',strtotime($plan['date']))?></td>

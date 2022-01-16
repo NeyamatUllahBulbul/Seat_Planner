@@ -12,8 +12,6 @@
         <div class="col-2" style="margin-top: 22px;">
             <button style="background-color: #23B0ED;border: 1px solid #fff;border-radius:10px; height: 44px;width: 185px; color: white;" href="#"><b>Online Admission</b></button>
         </div>
-
-
         <div class="col-3">
             <div class="pull-left">
                 <img src="images/suborno_50.png" id="sublogopic" alt="Stamford University Logo and Name" style="height: 80px;">
@@ -23,7 +21,7 @@
 <?Php
     include_once 'database_connection.php';
     $conn = connect();
-    $sql = "SELECT * FROM batches";
+    $sql = "SELECT * FROM batches WHERE status='Active'";
     $batches= $conn->query($sql);
 ?>
     </div><!-- //CONTAINER -->
