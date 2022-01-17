@@ -25,7 +25,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>Subject management</h1>
+                    <h1>Routine management</h1>
                 </div>
             </div>
         </div>
@@ -33,8 +33,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Subjects</li>
-                        <li class="active">Add Subject</li>
+                        <li class="active">Routines</li>
+                        <li class="active">Add Routine</li>
                     </ol>
                 </div>
             </div>
@@ -42,15 +42,23 @@
     </div>
     <div class="content mt-3">
         <?php include_once '_messages.php'?>
-        
+        <?php
+
+        include_once 'database_connection.php';
+        $conn = connect();
+        $sql = "SELECT * FROM batches WHERE status='Active'";
+        $batches= $conn->query($sql);
+        $sql = "SELECT * FROM semesters WHERE status='Active'";
+        $semesters= $conn->query($sql);
+        ?>
 
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header">Subject Adding form</div>
+                    <div class="card-header">Routine Adding form</div>
                     <div class="card-body card-block">
-                        <form action="routine_add_action.php" method="POST" class="">
+                        <form action="routine_add_action.php" method="POST" class="" enctype="multipart/form-data">
                             <div class="form-group">
                                 <div class="input-group">
                                     <div class="input-group-addon"><i class="fa fa-users"></i></div>
@@ -67,8 +75,8 @@
                                     <div class="input-group-addon"><i class="fa fa-university"></i></div>
                                     <select name="semister_id" id="select" class="form-control">
                                         <option value="">Select Semister</option>
-                                        <?php foreach ($batches as $batch){ ?>
-                                            <option value="<?= $semister['id']?>"><?= $semister['name']?></option>
+                                        <?php foreach ($semesters as $semester){ ?>
+                                            <option value="<?= $semester['id']?>"><?= $semester['name']?></option>
                                         <?php } ?>
                                     </select>
                                 </div>
