@@ -25,8 +25,11 @@
                 <li>
                     <a href="department_index.php"> <i class="menu-icon fa fa-building"></i>Manage Departments</a>
                 </li>
-                <li >
+                <li>
                     <a href="batch_index.php"> <i class="menu-icon fa fa-tasks"></i>Manage Batches</a>
+                </li>
+                <li>
+                    <a href="semester_index.php"> <i class="menu-icon fa fa-book"></i>Manage Semester</a>
                 </li>
                 <li>
                     <a href="user_index.php"> <i class="menu-icon fa fa-user"></i>Manage Users</a>

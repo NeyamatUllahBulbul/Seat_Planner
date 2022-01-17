@@ -48,8 +48,9 @@
         </div>
     </div>
     <div class="content mt-3">
-        <?php include_once '_messages.php'?>
-
+        <div class="row">
+            <?php include_once '_messages.php'?>
+        </div>
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">

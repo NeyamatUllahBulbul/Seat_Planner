@@ -9,7 +9,6 @@
 
 <body>
 
-
 <!-- Left Panel -->
 <?php include_once 'template/leftNav.php'?>
 <!-- Left Panel -->
@@ -26,7 +25,7 @@
         <div class="col-sm-4">
             <div class="page-header float-left">
                 <div class="page-title">
-                    <h1>User management</h1>
+                    <h1>Semester Management</h1>
                 </div>
             </div>
         </div>
@@ -34,7 +33,8 @@
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-
+                        <li class="active">Semester</li>
+                        <li class="active">Create</li>
                     </ol>
                 </div>
             </div>
@@ -44,35 +44,36 @@
         <div class="row">
             <?php include_once '_messages.php'?>
         </div>
+        <?php
+            include_once 'database_connection.php';
+            $conn = connect();
+            $sql = "SELECT * FROM departments";
+            $departments= $conn->query($sql);
+        ?>
+
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">
                 <div class="card">
-                    <div class="card-header">User creation form</div>
+                    <div class="card-header">Semester creation form</div>
                     <div class="card-body card-block">
-                        <form action="user_create_action.php" method="POST" class="">
+                        <form action="semester_create_action.php" method="POST" class="">
                             <div class="form-group">
                                 <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="text" id="username" name="name" placeholder="Name" class="form-control">
+                                    <div class="input-group-addon"><i class="fa fa-book"></i></div>
+                                    <input type="text" id="username" name="name" placeholder="Semester name" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-user"></i></div>
-                                    <input type="text" id="username" name="username" placeholder="Username" class="form-control">
+                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    <input type="date" id="username" name="start_date" placeholder="Start date" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
                                 <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-envelope"></i></div>
-                                    <input type="email" id="email" name="email" placeholder="Email" class="form-control">
-                                </div>
-                            </div>
-                            <div class="form-group">
-                                <div class="input-group">
-                                    <div class="input-group-addon"><i class="fa fa-asterisk"></i></div>
-                                    <input type="password" id="password" name="password" placeholder="Password" class="form-control">
+                                    <div class="input-group-addon"><i class="fa fa-calendar"></i></div>
+                                    <input type="date" id="username" name="end_date" placeholder="End date" class="form-control">
                                 </div>
                             </div>
                             <div class="form-group">
@@ -99,3 +100,5 @@
 
 <!-- Right Panel -->
 <?php include_once 'template/footer.php'?>
+
+

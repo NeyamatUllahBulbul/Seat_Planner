@@ -42,16 +42,17 @@ if (!isset($_SESSION['loggedin'])){
             <div class="page-header float-right">
                 <div class="page-title">
                     <ol class="breadcrumb text-right">
-                        <li class="active">Department</li>
-                        <li class="active">Batch edit</li>
+                        <li class="active">Batch</li>
+                        <li class="active">Edit</li>
                     </ol>
                 </div>
             </div>
         </div>
     </div>
     <div class="content mt-3">
-        <?php include_once '_messages.php'?>
-
+        <div class="row">
+            <?php include_once '_messages.php'?>
+        </div>
         <div class="row">
             <div class="col-lg-3"></div>
             <div class="col-lg-6">

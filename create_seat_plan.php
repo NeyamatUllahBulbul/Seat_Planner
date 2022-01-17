@@ -41,7 +41,9 @@ if (!isset($_SESSION['loggedin'])){
         </div>
     </div>
     <div class="content mt-3">
-        <?php include_once '_messages.php'?>
+        <div class="row">
+            <?php include_once '_messages.php'?>
+        </div>
         <?php
 
         include_once 'database_connection.php';
