@@ -46,6 +46,8 @@
                     <ul class="sub-menu children dropdown-menu">
                         <li><i class="fa fa-plus-circle"></i><a href="create_subject.php">Add Subject</a></li>
                         <li><i class="fa fa-table"></i><a href="subject_index.php">Manage Subject</a></li>
+                        <li><i class="fa fa-plus-circle"></i><a href="add_exam_routine.php">Add Exam Routine</a></li>
+                        <li><i class="fa fa-table"></i><a href="exam_routine_index.php">Manage Exam Routine</a></li>
                     </ul>
                 </li>
 

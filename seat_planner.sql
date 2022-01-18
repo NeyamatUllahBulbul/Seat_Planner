@@ -231,9 +231,58 @@ CREATE TABLE `semesters` (
 INSERT INTO `semesters` (`id`, `name`, `start_date`, `end_date`, `status`) VALUES
 (2, 'Summer', '0000-00-00', '0000-00-00', 'Active');
 --
--- Indexes for dumped tables
+-- Table structure for table `subjects`
 --
 
+CREATE TABLE `subjects` (
+  `id` int(11) NOT NULL,
+  `name` varchar(100) NOT NULL,
+  `credit` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `subjects`
+--
+
+INSERT INTO `subjects` (`id`, `name`, `credit`) VALUES
+(2, 'Agile Development', 4);
+
+--
+--
+-- Table structure for table `exam_routine`
+--
+
+CREATE TABLE `exam_routine` (
+  `id` int(11) NOT NULL,
+  `batch_id` int(11) NOT NULL,
+  `semister_id` int(11) NOT NULL,
+  `photo` text NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `exam_routine`
+--
+
+INSERT INTO `exam_routine` (`id`, `batch_id`, `semister_id`, `photo`) VALUES
+(3, 4, 2, 'images/routine/android.PNG');
+
+--
+-- Indexes for dumped tables
+--
+--
+--
+-- Indexes for table `exam_routine`
+--
+ALTER TABLE `exam_routine`
+  ADD PRIMARY KEY (`id`);
+
+--
+-- Indexes for table `subjects`
+--
+ALTER TABLE `subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
 --
 -- Indexes for table `batches`
 --
@@ -273,7 +322,17 @@ ALTER TABLE `semesters`
 --
 -- AUTO_INCREMENT for dumped tables
 --
-
+--
+--
+-- AUTO_INCREMENT for table `exam_routine`
+--
+ALTER TABLE `exam_routine`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=4;
+--
+-- AUTO_INCREMENT for table `subjects`
+--
+ALTER TABLE `subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=3;
 --
 -- AUTO_INCREMENT for table `batches`
 --
