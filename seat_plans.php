@@ -12,8 +12,6 @@
     <div class="col-2" style="margin-top: 22px;">
         <button style="background-color: #23B0ED;border: 1px solid #fff;border-radius:10px; height: 44px;width: 185px; color: white;" href="#"><b>Online Admission</b></button>
     </div>
-
-
     <div class="col-3">
         <div class="pull-left">
             <img src="images/suborno_50.png" id="sublogopic" alt="Stamford University Logo and Name" style="height: 80px;">
@@ -21,15 +19,10 @@
         </div>
     </div>
     <?Php
-        if ($_GET['batch_id'] == ''){
-            header('location:index.php');
-            exit;
-        }
-        $batch_id = $_GET['batch_id'];
-        include_once 'database_connection.php';
-        $conn = connect();
-        $sql = "SELECT * FROM batches";
-        $batches= $conn->query($sql);
+    include_once 'database_connection.php';
+    $conn = connect();
+    $sql = "SELECT * FROM batches WHERE status='Active'";
+    $batches= $conn->query($sql);
     ?>
 </div><!-- //CONTAINER -->
 <hr class="hline">
@@ -59,7 +52,7 @@
     <div class="col-4"></div>
 </div>
 <?php
-$sql = "SELECT * FROM seat_plans WHERE first_batch='$batch_id' OR second_batch='$batch_id'";
+$sql = "SELECT * FROM seat_plans";
 $result= $conn->query($sql);
 foreach ($result as $row){
     $first_batch    = $row['first_batch'];
