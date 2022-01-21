@@ -41,7 +41,7 @@
                 <li class="menu-item-has-children dropdown">
                     <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Seat Plan</a>
                     <ul class="sub-menu children dropdown-menu">
-                        <li><i class="fa fa-list"></i><a href="create_seat_plan.php">Make seat plan</a></li>
+                        <li><i class="fa fa-list"></i><a href="create_seat_plan_pre.php">Make seat plan</a></li>
                         <li><i class="fa fa-eye"></i><a href="seat_plan_index.php">View seat plans</a></li>
                     </ul>
                 </li>

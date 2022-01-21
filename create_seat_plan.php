@@ -1,10 +1,38 @@
-<?php session_start(); ?>
 <?php
-if (!isset($_SESSION['loggedin'])){
+session_start();
+
+if (!isset($_SESSION['loggedin'])) {
     header('location:admin.php');
     exit;
 }
+
+if ($_POST) {
+    $first_batch_id = $_POST['first_batch'];
+    $second_batch_id = $_POST['second_batch'];
+    $semester_id = $_POST['semester'];
+
+    if ($semester_id == '') {
+        $_SESSION['error'] = 'Select Semester first<br>';
+        header('location:create_seat_plan_pre.php');
+        exit;
+    }
+    if ($first_batch_id == '') {
+        $_SESSION['error'] = 'Select First batch<br>';
+        header('location:create_seat_plan_pre.php');
+        exit;
+    }
+    if ($second_batch_id == '') {
+        $_SESSION['error'] = 'Select Second batch<br>';
+        header('location:create_seat_plan_pre.php');
+        exit;
+    } elseif ($first_batch_id == $second_batch_id) {
+        $_SESSION['error'] = 'Two batches cannot be the same<br>';
+        header('location:create_seat_plan_pre.php');
+        exit;
+    }
+}
 ?>
+
 <?php include_once 'template/_head.php'?>
 
 <body>
@@ -45,11 +73,38 @@ if (!isset($_SESSION['loggedin'])){
             <?php include_once '_messages.php'?>
         </div>
         <?php
-
         include_once 'database_connection.php';
         $conn = connect();
-        $sql = "SELECT * FROM batches WHERE status='Active'";
-        $batches= $conn->query($sql);
+        $sql = "SELECT * FROM batches WHERE id='$first_batch_id'";
+        $result = $conn->query($sql);
+        $first_batch_name= $result->fetch_assoc();
+
+        $sql = "SELECT * FROM batches WHERE id='$second_batch_id'";
+        $output = $conn->query($sql);
+        $second_batch_name= $output->fetch_assoc();
+
+        $sql = "SELECT * FROM semesters WHERE id='$semester_id'";
+        $semester = $conn->query($sql);
+        $semester_name= $semester->fetch_assoc();
+
+        $sql5 = "SELECT * FROM subjects";
+        $all_subjects= $conn->query($sql5);
+
+        $sql = "SELECT * FROM assigned_batch_subjects WHERE batch_id = '$first_batch_id' AND semister_id='$semester_id'";
+        $first_bs = $conn->query($sql);
+        $first_subjects = $first_bs->fetch_assoc();
+        $first_batch_subjects = [];
+        foreach ($first_bs as $fbs) {
+            array_push($first_batch_subjects, $fbs['subjects_id']);
+        }
+
+        $sql = "SELECT * FROM assigned_batch_subjects WHERE batch_id = '$second_batch_id' AND semister_id='$semester_id'";
+        $second_bs = $conn->query($sql);
+        $second_subjects = $second_bs->fetch_assoc();
+        $second_batch_subjects = [];
+        foreach ($second_bs as $sbs) {
+            array_push($second_batch_subjects, $sbs['subjects_id']);
+        }
         ?>
 
         <div class="row">
@@ -62,23 +117,36 @@ if (!isset($_SESSION['loggedin'])){
                             <div class="row">
                                 <div class="col-6">
                                     <p style="color: black">Candidate Information</p>
+                                    <input type="hidden" name="first_batch" value="<?= $first_batch_id ?>">
+                                    <input type="hidden" name="second_batch" value="<?= $second_batch_id ?>">
+                                    <input type="hidden" name="semester" value="<?= $semester_name['name'] ?>">
                                     <div class="form-group">
                                         <label class=""><b>First batch</b></label><br>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-building"></i></div>
-                                            <select name="first_batch" id="select" class="form-control">
-                                                <option value="">Select batch</option>
-                                                <?php foreach ($batches as $batch){ ?>
-                                                    <option value="<?= $batch['id']?>"><?= $batch['name']?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <input type="text" value="<?= $semester_name['name'] ?>" class="form-control" readonly>
+                                        </div>
+                                    </div>
+                                    <div class="form-group">
+                                        <label class=""><b>First batch</b></label><br>
+                                        <div class="input-group">
+                                            <div class="input-group-addon"><i class="fa fa-building"></i></div>
+                                            <input type="text" value="<?= $first_batch_name['name'] ?>" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class=""><b>First batch subject</b></label><br>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-book"></i></div>
-                                            <input type="text" id="username" name="first_subject" placeholder="Subject name" class="form-control">
+                                            <select name="first_subject" id="select" class="form-control">
+                                                <option value="">Select subject</option>
+                                                <?php
+                                                foreach ($all_subjects as $subject){
+                                                    if (in_array($subject['id'], $first_batch_subjects)) {
+                                                    ?>
+                                                    <option value="<?= $subject['name']?>"><?= $subject['name']?></option>
+                                                <?php } } ?>
+                                            </select>
                                         </div>
                                     </div>
 
@@ -86,19 +154,22 @@ if (!isset($_SESSION['loggedin'])){
                                         <label class=""><b>Second batch</b></label><br>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-building"></i></div>
-                                            <select name="second_batch" id="select" class="form-control">
-                                                <option value="">Select batch</option>
-                                                <?php foreach ($batches as $batch){ ?>
-                                                    <option value="<?= $batch['id']?>"><?= $batch['name']?></option>
-                                                <?php } ?>
-                                            </select>
+                                            <input type="text" value="<?= $second_batch_name['name'] ?>" class="form-control" readonly>
                                         </div>
                                     </div>
                                     <div class="form-group">
                                         <label class=""><b>Second batch subject</b></label><br>
                                         <div class="input-group">
                                             <div class="input-group-addon"><i class="fa fa-book"></i></div>
-                                            <input type="text" id="username" name="second_subject" placeholder="Subject name" class="form-control">
+                                            <select name="second_subject" id="select" class="form-control">
+                                                <option value="">Select subject</option>
+                                                <?php
+                                                foreach ($all_subjects as $subject){
+                                                    if (in_array($subject['id'], $second_batch_subjects)) {
+                                                        ?>
+                                                        <option value="<?= $subject['name']?>"><?= $subject['name']?></option>
+                                                    <?php } } ?>
+                                            </select>
                                         </div>
                                     </div>
                                 </div>

@@ -46,7 +46,7 @@
     <div class="row text-center mt-4 mb-3">
         <div class="col-4"></div>
         <div class="col-4">
-            <h1><a href="index.php"><u>Examination Routine</a></h1>
+            <h1><u>Examination Routine</h1>
             <h1><a href="seat_plans.php"><u>Seat Plans</a></h1>
         </div>
         <div class="col-4"></div>

@@ -266,6 +266,13 @@ CREATE TABLE `exam_routine` (
 INSERT INTO `exam_routine` (`id`, `batch_id`, `semister_id`, `photo`) VALUES
 (3, 4, 2, 'images/routine/android.PNG');
 
+CREATE TABLE `assigned_batch_subjects` (
+   `id` int(11) NOT NULL,
+   `batch_id` int(11) NOT NULL,
+   `semister_id` int(11) NOT NULL,
+   `subjects_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
 --
 -- Indexes for dumped tables
 --
@@ -276,6 +283,8 @@ INSERT INTO `exam_routine` (`id`, `batch_id`, `semister_id`, `photo`) VALUES
 ALTER TABLE `exam_routine`
   ADD PRIMARY KEY (`id`);
 
+ALTER TABLE `assigned_batch_subjects`
+    ADD PRIMARY KEY (`id`);
 --
 -- Indexes for table `subjects`
 --
@@ -323,6 +332,8 @@ ALTER TABLE `semesters`
 -- AUTO_INCREMENT for dumped tables
 --
 --
+ALTER TABLE `assigned_batch_subjects`
+    MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `exam_routine`
 --
