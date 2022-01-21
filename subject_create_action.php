@@ -4,7 +4,6 @@ if ($_POST){
     $name       = $_POST['name'];
     $credit    = $_POST['credit'];
    
-
     if($name == ''){
         $_SESSION['error']= 'Please insert your subject name<br>';
         header('location:create_subject.php');
@@ -21,7 +20,7 @@ if ($_POST){
 
     $sql = "SELECT * FROM subjects WHERE name = '$name'";
     $output= $conn->query($sql);
-
+    
     if ($output->num_rows > 0){
         $_SESSION['error']= 'Subject name already exists';
         header('location:create_subject.php');
