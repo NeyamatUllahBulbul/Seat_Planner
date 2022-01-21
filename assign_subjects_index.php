@@ -79,7 +79,7 @@ if (!isset($_SESSION['loggedin'])){
                                     <td><?= $subject['semester_name']?></td>
                                     <td><?= $subject['subjects']?></td>
                                     <td>
-                                        <form class="" action="#" method="post" style="display:inline">
+                                        <form class="" action="assign_subjects_delete.php" method="post" style="display:inline">
                                             <input type="hidden" name="batch_id" value="<?= $subject['id']?>">
                                             <button title="Delete" type="submit" class="btn btn-danger btn-sm" onclick="return confirm('Are you sure?')">
                                                 <i class="fa fa-trash"></i>Delete

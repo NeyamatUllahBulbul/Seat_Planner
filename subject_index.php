@@ -45,6 +45,7 @@ if (!isset($_SESSION['loggedin'])){
         $conn = connect();
         $sql = "SELECT * FROM subjects";
         $subjects= $conn->query($sql);
+        
         $serial = 1;
     ?>
 

@@ -16,10 +16,10 @@ if ($_POST){
     }
 
     // File Upload
-    $target_dir = "images/routine/";
-    $target_file = $target_dir . basename($_FILES["photo"]["name"]);
+    $image_save_folder = "images/routine/";
+    $file_name = $image_save_folder . basename($_FILES["photo"]["name"]);
     $uploadOk = 1;
-    $imageFileType = strtolower(pathinfo($target_file,PATHINFO_EXTENSION));
+    $imageFileType = strtolower(pathinfo($file_name,PATHINFO_EXTENSION));
 
     // Check if image file is a actual image or fake image
     if(isset($_POST["submit"])) {
@@ -34,7 +34,7 @@ if ($_POST){
     }
 
     // Check if file already exists
-    if (file_exists($target_file)) {
+    if (file_exists($file_name)) {
     echo "Sorry, file already exists.";
     $uploadOk = 0;
     }
@@ -57,7 +57,7 @@ if ($_POST){
     echo "Sorry, your file was not uploaded.";
     // if everything is ok, try to upload file
     } else {
-    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $target_file)) {
+    if (move_uploaded_file($_FILES["photo"]["tmp_name"], $file_name)) {
         echo "The file ". htmlspecialchars( basename( $_FILES["photo"]["name"])). " has been uploaded.";
     } else {
         echo "Sorry, there was an error uploading your file.";
@@ -68,7 +68,7 @@ if ($_POST){
     $conn = connect();
 
     $sql="INSERT INTO exam_routine (batch_id,semister_id,photo)
-            VALUES ('$batch_id','$semister_id','$target_file')";
+            VALUES ('$batch_id','$semister_id','$file_name')";
     $conn->query($sql);
     $_SESSION['success']= 'Routine Added successfully';
     header('location:add_exam_routine.php');

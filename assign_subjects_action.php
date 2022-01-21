@@ -4,7 +4,7 @@ if ($_POST){
     $batch_id       = $_POST['batch_id'];
     $semister_id    = $_POST['semister_id'];
     $subjects_id    = $_POST['subjects'];
-   
+  
 
     if($batch_id == ''){
         $_SESSION['error']= 'Please select your batch name<br>';
@@ -31,7 +31,7 @@ if ($_POST){
             VALUES ('$batch_id','$semister_id','$subject_id')";
     $conn->query($sql);
     }
-    $_SESSION['success']= 'Routine Added successfully';
+    $_SESSION['success']= 'Subjects Added successfully';
     header('location:assign_subjects_index.php');
     
 

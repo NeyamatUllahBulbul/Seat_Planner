@@ -14,6 +14,7 @@
         $sql = "SELECT * FROM subjects WHERE id='$subject_id'";
         $result = $conn->query($sql);
         $subject = $result->fetch_assoc();
+        
     }
 ?>
 
