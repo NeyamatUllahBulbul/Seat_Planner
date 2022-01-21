@@ -26,6 +26,26 @@ SET time_zone = "+00:00";
 --
 -- Table structure for table `batches`
 --
+--
+
+CREATE TABLE `assigned_batch_subjects` (
+  `id` int(11) NOT NULL,
+  `batch_id` int(11) NOT NULL,
+  `semister_id` int(11) NOT NULL,
+  `subjects_id` int(11) NOT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4;
+
+--
+-- Dumping data for table `assigned_batch_subjects`
+--
+
+INSERT INTO `assigned_batch_subjects` (`id`, `batch_id`, `semister_id`, `subjects_id`) VALUES
+(3, 2, 2, 2),
+(4, 2, 2, 3),
+(5, 2, 2, 4),
+(6, 2, 2, 5);
+
+--
 
 CREATE TABLE `batches` (
   `id` int(11) NOT NULL,
@@ -270,6 +290,13 @@ INSERT INTO `exam_routine` (`id`, `batch_id`, `semister_id`, `photo`) VALUES
 -- Indexes for dumped tables
 --
 --
+-- Indexes for table `assigned_batch_subjects`
+--
+ALTER TABLE `assigned_batch_subjects`
+  ADD PRIMARY KEY (`id`);
+
+--
+--
 --
 -- Indexes for table `exam_routine`
 --
@@ -351,6 +378,11 @@ ALTER TABLE `departments`
 ALTER TABLE `seat_plans`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=33;
 
+--
+-- AUTO_INCREMENT for table `assigned_batch_subjects`
+--
+ALTER TABLE `assigned_batch_subjects`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
 --
 -- AUTO_INCREMENT for table `students`
 --
