@@ -37,8 +37,8 @@ if ($_POST){
         $_SESSION['error']= 'Please insert a student id<br>';
         header('location:student_create.php');
         exit;
-    } elseif (strlen($student_id) != 6) {
-        $_SESSION['error']= 'Student id cannot be more or less than 6 digits<br>';
+    } elseif (strlen($student_id) != 11) {
+        $_SESSION['error']= 'Student id cannot be more or less than 11 digits<br>';
         header('location:student_create.php');
         exit;
     }

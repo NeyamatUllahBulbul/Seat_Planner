@@ -382,7 +382,7 @@ ALTER TABLE `seat_plans`
 -- AUTO_INCREMENT for table `assigned_batch_subjects`
 --
 ALTER TABLE `assigned_batch_subjects`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=7;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=57;
 --
 -- AUTO_INCREMENT for table `students`
 --

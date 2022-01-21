@@ -28,6 +28,8 @@
                 <li class="menu-item-has-children dropdown">
                 <a href="#" class="dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false"> <i class="menu-icon fa fa-tasks"></i>Manage Batches</a>
                     <ul class="sub-menu children dropdown-menu">
+                        <li><i class="fa fa-plus-circle"></i><a href="batch_create.php">Add Batch</a></li>
+                        <li><i class="fa fa-table"></i><a href="batch_index.php">Manage Batch</a></li>
                         <li><i class="fa fa-plus-circle"></i><a href="assign_subjects.php">Assign Subjects</a></li>
                         <li><i class="fa fa-table"></i><a href="assign_subjects_index.php">Assigned Batch Subjects</a></li>
                     </ul>
